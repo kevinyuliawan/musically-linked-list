@@ -6,7 +6,7 @@
     Custom edited to take a Note which already has .next and .prev properties built in 
 */
 
-function DoublyLinkedList(){this._head=null;this._tail=null;this._length=0}DoublyLinkedList.prototype={constructor:DoublyLinkedList,add:function(noteObject){var node=noteObject;if(this._length==0){this._head=node;this._tail=node}else{this._tail.next=node;this._head.prev=node;node.prev=this._tail;node.next=this._head;this._tail=node}this._length++},item:function(index){if(index>-1&&index<this._length){var current=this._head,i=0;while(i++<index){current=current.next}return current.data}else{return null}},remove:function(index){if(index>-1&&index<this._length){var current=this._head,i=0;if(index===0){this._head=current.next;if(!this._head){this._tail=null}else{this._head.prev=null}}else if(index===this._length-1){current=this._tail;this._tail=current.prev;this._tail.next=null}else{while(i++<index){current=current.next}current.prev.next=current.next}this._length--;return current.data}else{return null}},size:function(){return this._length},toArray:function(){var result=[],current=this._head,end=this._tail;while(current){result.push(current);if(current===end)break;current=current.next}return result},toString:function(){return this.toArray().toString()},note:function(note){note=note.toString();note=note[0].toUpperCase()+note.substring(1);var current=this._head,end=this._tail;while(current){if(current.names.natural==note||current.names.sharp==note||current.names.flat==note){return current;break}if(current===end){return false;break}current=current.next}}};
+function DoublyLinkedList(){this._head=null;this._tail=null;this._length=0}DoublyLinkedList.prototype={constructor:DoublyLinkedList,add:function(noteObject){var node=noteObject;if(this._length==0){this._head=node;this._tail=node}else{this._tail.next=node;this._head.prev=node;node.prev=this._tail;node.next=this._head;this._tail=node}this._length++;return node},item:function(index){if(index>-1&&index<this._length){var current=this._head,i=0;while(i++<index){current=current.next}return current.data}else{return null}},remove:function(index){if(index>-1&&index<this._length){var current=this._head,i=0;if(index===0){this._head=current.next;if(!this._head){this._tail=null}else{this._head.prev=null}}else if(index===this._length-1){current=this._tail;this._tail=current.prev;this._tail.next=null}else{while(i++<index){current=current.next}current.prev.next=current.next}this._length--;return current.data}else{return null}},size:function(){return this._length},toArray:function(){var result=[],current=this._head,end=this._tail;while(current){result.push(current);if(current===end)break;current=current.next}return result},toString:function(){return this.toArray().toString()},note:function(note){note=note.toString();note=note[0].toUpperCase()+note.substring(1);var current=this._head,end=this._tail;while(current){if(current.names.natural==note||current.names.sharp==note||current.names.flat==note){return current;break}if(current===end){return false;break}current=current.next}}};
 
 
 // establishing the Note object/class
@@ -66,65 +66,20 @@ var musicList = new DoublyLinkedList();
 
 /* 
  *  List of notes: 
- *  new Note(natural, sharp, flat, zerofrequency) 
+ *  new Note(natural, sharp, flat, zerofrequency, color) 
  */
-var one    = new Note( 'C'  , 'B#' , null , 16.35 , 'white');
-var two    = new Note( null , 'C#' , 'Db' , 17.32 , 'black');
-var three  = new Note( 'D'  , null , null , 18.35 , 'white');
-var four   = new Note( null , 'D#' , 'Eb' , 19.45 , 'black');
-var five   = new Note( 'E'  , null , 'Fb' , 20.60 , 'white');
-var six    = new Note( 'F'  , 'E#' , null , 21.83 , 'white');
-var seven  = new Note( null , 'F#' , 'Gb' , 23.12 , 'black');
-var eight  = new Note( 'G'  , null , null , 24.50 , 'white');
-var nine   = new Note( null , 'G#' , 'Ab' , 25.96 , 'black');
-var ten    = new Note( 'A'  , null , null , 27.50 , 'white');
-var eleven = new Note( null , 'A#' , 'Bb' , 29.14 , 'black');
-var twelve = new Note( 'B'  , null , 'Cb' , 30.87 , 'white');
-
-
-
-
-// loop to add all 12 notes
-for(var i=1;i<=12;i++){
-  switch(i){
-      case(1):
-        musicList.add(one);
-        break;
-      case(2):
-        musicList.add(two);
-        break;
-      case(3):
-        musicList.add(three);
-        break;
-      case(4):
-        musicList.add(four);
-        break;
-      case(5):
-        musicList.add(five);
-        break;
-      case(6):
-        musicList.add(six);
-        break;
-      case(7):
-        musicList.add(seven);
-        break;
-      case(8):
-        musicList.add(eight);
-        break;
-      case(9):
-        musicList.add(nine);
-        break;
-      case(10):
-        musicList.add(ten);
-        break;
-      case(11):
-        musicList.add(eleven);
-        break;
-      case(12):
-        musicList.add(twelve);
-        break;
-  };
-};
+var one    = musicList.add( new Note( 'C'  , 'B#' , null , 16.35 , 'white' ));
+var two    = musicList.add( new Note( null , 'C#' , 'Db' , 17.32 , 'black' ));
+var three  = musicList.add( new Note( 'D'  , null , null , 18.35 , 'white' ));
+var four   = musicList.add( new Note( null , 'D#' , 'Eb' , 19.45 , 'black' ));
+var five   = musicList.add( new Note( 'E'  , null , 'Fb' , 20.60 , 'white' ));
+var six    = musicList.add( new Note( 'F'  , 'E#' , null , 21.83 , 'white' ));
+var seven  = musicList.add( new Note( null , 'F#' , 'Gb' , 23.12 , 'black' ));
+var eight  = musicList.add( new Note( 'G'  , null , null , 24.50 , 'white' ));
+var nine   = musicList.add( new Note( null , 'G#' , 'Ab' , 25.96 , 'black' ));
+var ten    = musicList.add( new Note( 'A'  , null , null , 27.50 , 'white' ));
+var eleven = musicList.add( new Note( null , 'A#' , 'Bb' , 29.14 , 'black' ));
+var twelve = musicList.add( new Note( 'B'  , null , 'Cb' , 30.87 , 'white' ));
 
 
 

@@ -91,6 +91,9 @@ DoublyLinkedList.prototype = {
         
         //don't forget to update the count
         this._length++;
+
+        //return the node if you need it after you add it
+        return node;
     
     },
 
